@@ -13,10 +13,7 @@ router = APIRouter(prefix="/users", tags=["User Routes"])
 
 
 @router.get("/", response_model=List[UserResponse])
-async def get_users(
-    db: Session = Depends(get_db), current_user=Depends(get_current_user)
-):
-    print(f"current_user: {current_user}")
+async def get_users(db: Session = Depends(get_db)):
     users_sql = db.query(UserModel).filter_by(is_active=True)
     print(users_sql)
     users = users_sql.all()
